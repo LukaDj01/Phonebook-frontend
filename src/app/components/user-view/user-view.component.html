@@ -1,11 +1,22 @@
-<!-- <div *ngIf="user">
-</div> -->
-<h2>Korisničke informacije</h2>
-<label>Ime:</label><br>
-<input type="text"><br><br>
-<label>Prezime:</label><br>
-<input type="text"><br><br>
-<label>Email:</label><br>
-<input type="text"><br><br>
-<label>Telefon:</label><br>
-<input type="text">
+<div *ngIf="user">
+    <h2>Korisničke informacije</h2>
+    <label>Ime:</label>
+    <label>{{user.firstName}}</label><br><br>
+    <label>Prezime:</label>
+    <label>{{user.lastName}}</label><br><br>
+    <label>Email:</label>
+    <label>{{user.email}}</label><br><br>
+    <label>Telefon:</label>
+    <label>{{user.phoneNumber}}</label>
+</div>
+<div *ngIf="!user">
+    <h2>Korisničke informacije</h2>
+    <label>Ime:</label>
+    <label>Ime</label><br><br>
+    <label>Prezime:</label>
+    <label>Prezime</label><br><br>
+    <label>Email:</label>
+    <label>Email</label><br><br>
+    <label>Telefon:</label>
+    <label>Telefon</label>
+</div>
