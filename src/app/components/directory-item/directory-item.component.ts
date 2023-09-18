@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -8,13 +8,8 @@ import { User } from 'src/app/models/user';
 })
 export class DirectoryItemComponent implements OnInit {
 
-  user: User = {
-    id: 2,
-    firstName: "string",
-    lastName: "string",
-    phoneNumber: "string",
-    email: "string",
-  }
+  @Input()
+  user: User | null = null;
 
   constructor() {}
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -9,7 +10,7 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class DirectoryComponent implements OnInit {
 
-  users: User[] = [];
+  user$: Observable<User[]> = of([]);
 
   title = "Imenik";
 
@@ -18,8 +19,6 @@ export class DirectoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usersService.getAll().subscribe(users => {
-      this.users = users;
-    });
+    this.user$ = this.usersService.getAll();
   }
 }
