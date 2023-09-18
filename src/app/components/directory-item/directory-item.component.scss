@@ -1,0 +1,15 @@
+.directory-item-div{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+
+.directory-item-picture {
+    width: 32px;
+    height: 32px;
+}
+
+.directory-item-info {
+    margin-left: 15px;
+}
