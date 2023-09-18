@@ -21,4 +21,9 @@ export class DirectoryComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.usersService.getAll();
   }
+
+  selectUser(user: User) {
+    console.log(user);
+    
+  }
 }
