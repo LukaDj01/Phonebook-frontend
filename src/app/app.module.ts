@@ -10,6 +10,9 @@ import { DirectoryItemComponent } from './components/directory-item/directory-it
 import { StoreModule } from '@ngrx/store';
 import { usersReducer } from './store/user.reducer';
 import { AppState } from './app.state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersEffects } from './store/user.effects';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,12 @@ import { AppState } from './app.state';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot<AppState>({ users: usersReducer })
+    StoreModule.forRoot<AppState>({ users: usersReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
+    EffectsModule.forRoot([UsersEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

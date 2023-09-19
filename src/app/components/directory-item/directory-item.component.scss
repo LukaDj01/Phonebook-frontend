@@ -4,6 +4,11 @@
     border: 1px solid black;
     padding-left: 10px;
     cursor: pointer;
+    background-color: beige;
+}
+
+.directory-item-div:hover{
+    background-color: rgb(209, 209, 188);
 }
 
 .directory-item-picture {

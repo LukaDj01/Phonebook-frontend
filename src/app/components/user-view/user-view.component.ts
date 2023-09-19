@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { User } from 'src/app/models/user';
+import { selectSelectedUser } from 'src/app/store/user.selector';
 
 @Component({
   selector: 'app-user-view',
@@ -16,8 +17,10 @@ export class UserViewComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.subscribe((state) => {
-      console.log(state.users.selectedUser);
+    this.store.select(selectSelectedUser).subscribe((user) => {
+      if(user){
+        this.user = user;
+      }
     });
   }
 

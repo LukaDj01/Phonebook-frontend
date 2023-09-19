@@ -4,7 +4,8 @@ import { Observable, of } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { User } from 'src/app/models/user';
 import { UsersService } from 'src/app/services/users.service';
-import { selectUser } from 'src/app/store/user.action';
+import { loadUsers, selectUser } from 'src/app/store/user.action';
+import { selectUsersList } from 'src/app/store/user.selector';
 
 @Component({
   selector: 'app-directory',
@@ -23,7 +24,8 @@ export class DirectoryComponent implements OnInit {
     ){}
 
   ngOnInit(): void {
-    this.user$ = this.usersService.getAll();
+    this.store.dispatch(loadUsers());
+    this.user$ = this.store.select(selectUsersList);
   }
 
   selectUser(user: User) {

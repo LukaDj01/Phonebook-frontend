@@ -1,16 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
 import * as Actions from "./user.action";
 import { User } from "../models/user";
+import { EntityState, createEntityAdapter } from "@ngrx/entity";
 
-export interface UsersState {
-    users: User[];
+export interface UsersState extends EntityState<User> {
     selectedUser: number;
 }
 
-export const initialState: UsersState = {
-    users: [],
-    selectedUser: 0,
-}
+export const adapter = createEntityAdapter<User>();
+
+export const initialState: UsersState = adapter.getInitialState({
+    selectedUser: 0
+});
 
 export const usersReducer = createReducer(
     initialState,
@@ -20,4 +21,7 @@ export const usersReducer = createReducer(
             selectedUser: userId
         };
     }),
+    on(Actions.loadUsersSuccess, (state, {users}) => 
+        adapter.setAll(users, state)
+    )
 );
