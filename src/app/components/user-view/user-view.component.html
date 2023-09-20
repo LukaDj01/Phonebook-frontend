@@ -6,8 +6,18 @@
     <label>{{user.lastName}}</label><br><br>
     <label>Email:</label>
     <label>{{user.email}}</label><br><br>
-    <label>Telefon:</label>
-    <label>{{user.phoneNumber}}</label>
+    <label>Datum rodjenja:</label>
+    <label *ngIf="user.additionalInfos">{{getDateString()}}</label><br><br>
+    <label>Opis:</label>
+    <label *ngIf="user.additionalInfos">{{user.additionalInfos.description}}</label><br><br>
+    <label>Brojevi telefona:</label>
+    <div *ngIf="user.phones" >
+        <ul *ngFor="let phone of user.phones">
+            <li>
+                <app-phone [phone]="phone"></app-phone>
+            </li>
+        </ul>
+    </div>
 </div>
 <div *ngIf="!user">
     <h2>Korisničke informacije</h2><br>

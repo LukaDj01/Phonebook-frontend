@@ -24,4 +24,21 @@ export class UserViewComponent implements OnInit {
     });
   }
 
+  getDateString(): string {
+    if(this.user) {
+      let userBDate = new Date(this.user.additionalInfos.birthDate);
+      if(userBDate) {
+        let day = userBDate.getDate();
+        let month = userBDate.getMonth();
+        month++;
+        let year = userBDate.getFullYear();
+        return day + "." + month + "." + year + ".";
+      }
+      else
+        return "";
+    }
+    else
+      return "";
+  }
+
 }
