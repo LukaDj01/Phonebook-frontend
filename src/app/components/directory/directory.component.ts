@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { User } from 'src/app/models/user';
-import { UsersService } from 'src/app/services/users.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { loadUsers, selectUser } from 'src/app/store/user.action';
 import { selectUsersList } from 'src/app/store/user.selector';
 
@@ -19,7 +19,7 @@ export class DirectoryComponent implements OnInit {
   title = "Imenik";
 
   constructor(
-    private usersService: UsersService,
+    private authService: AuthService,
     private store: Store<AppState>
     ){}
 
@@ -34,5 +34,9 @@ export class DirectoryComponent implements OnInit {
         userId: user.id
       })
     );
+  }
+
+  onSignOut() {
+    this.authService.logout();
   }
 }

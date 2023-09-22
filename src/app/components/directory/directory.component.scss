@@ -1,3 +1,14 @@
+.menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signOutBtn{
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+}
+
 .dir-view-div{
     display: flex;
     justify-content: space-between;
