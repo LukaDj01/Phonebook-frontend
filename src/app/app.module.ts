@@ -13,13 +13,15 @@ import { AppState } from './app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from './store/user.effects';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DirectoryComponent,
     UserViewComponent,
-    DirectoryItemComponent
+    DirectoryItemComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
