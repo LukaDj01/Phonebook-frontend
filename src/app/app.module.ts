@@ -13,7 +13,7 @@ import { AppState } from './app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from './store/user.effects';
-import { AuthComponent } from './components/auth/auth.component';
+import { AuthModule } from './components/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,6 @@ import { AuthComponent } from './components/auth/auth.component';
     DirectoryComponent,
     UserViewComponent,
     DirectoryItemComponent,
-    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +31,8 @@ import { AuthComponent } from './components/auth/auth.component';
       maxAge: 25, // Retains last 25 states
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
-    EffectsModule.forRoot([UsersEffects])
+    EffectsModule.forRoot([UsersEffects]),
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
