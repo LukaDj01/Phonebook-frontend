@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { AppState } from 'src/app/app.state';
@@ -20,7 +21,8 @@ export class DirectoryComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
     ){}
 
   ngOnInit(): void {
@@ -38,5 +40,9 @@ export class DirectoryComponent implements OnInit {
 
   onSignOut() {
     this.authService.logout();
+  }
+
+  onProfile() {
+    this.router.navigateByUrl('/profile');
   }
 }

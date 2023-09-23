@@ -14,6 +14,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from './store/user.effects';
 import { AuthModule } from './components/auth/auth.module';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthModule } from './components/auth/auth.module';
     DirectoryComponent,
     UserViewComponent,
     DirectoryItemComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
