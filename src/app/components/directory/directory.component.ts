@@ -17,8 +17,6 @@ export class DirectoryComponent implements OnInit {
 
   user$: Observable<User[]> = of([]);
 
-  title = "Imenik";
-
   constructor(
     private authService: AuthService,
     private store: Store<AppState>,
