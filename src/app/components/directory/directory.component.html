@@ -1,7 +1,7 @@
 <div class="menu">
     <h2>Imenik</h2>
     <div>
-        <button (click)="onProfile()" class="profileBtn">Profil</button>
+        <button [routerLink]="['', { outlets: { home: ['profile'] } }]" class="profileBtn">Profil</button>
         <button (click)="onSignOut()" class="signOutBtn">Odjavi se</button>
     </div>
 </div>

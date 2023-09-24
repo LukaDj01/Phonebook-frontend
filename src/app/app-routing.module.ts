@@ -4,6 +4,7 @@ import { DirectoryComponent } from './components/directory/directory.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {
@@ -13,17 +14,22 @@ const routes: Routes = [
   },
   {
     path: "home",
-    component: DirectoryComponent,
+    component: HomeComponent,
     canActivate: [AuthGuard],
   },
   {
+    path: "directory",
+    component: DirectoryComponent,
+    outlet: "home"
+  },
+  {
     path: "auth",
-    component: AuthComponent
+    component: AuthComponent,
   },
   {
     path: "profile",
     component: ProfileComponent,
-    canActivate: [AuthGuard],
+    outlet: "home"
   },
 ];
 

@@ -5,12 +5,14 @@ import { EntityState, createEntityAdapter } from "@ngrx/entity";
 
 export interface UsersState extends EntityState<User> {
     selectedUser: number;
+    loggedUser: number;
 }
 
 export const adapter = createEntityAdapter<User>();
 
 export const initialState: UsersState = adapter.getInitialState({
-    selectedUser: 0
+    selectedUser: 0,
+    loggedUser: 0,
 });
 
 export const usersReducer = createReducer(
@@ -21,7 +23,21 @@ export const usersReducer = createReducer(
             selectedUser: userId
         };
     }),
+    on(Actions.loggedUser, (state, {userId}) => {
+        return {
+            ...state,
+            loggedUser: userId
+        };
+    }),
     on(Actions.loadUsersSuccess, (state, {users}) => 
         adapter.setAll(users, state)
+    ),
+    on(Actions.addPhoneNumberSuccess, (state, {user}) => 
+        adapter.updateOne({
+            id: user.id,
+            changes: {
+                phones: user.phones
+            }
+        }, state)
     )
 );

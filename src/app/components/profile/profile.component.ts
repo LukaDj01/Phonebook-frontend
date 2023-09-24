@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { UserResponse } from 'src/app/models/userResponse';
-import jwt_decode from 'jwt-decode';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectLoggedUser } from 'src/app/store/user.selector';
+import { AppState } from 'src/app/app.state';
+import { addPhoneNumber, loadUsers, loggedUser } from 'src/app/store/user.action';
+import jwt_decode from 'jwt-decode';
+import { UserResponse } from 'src/app/models/userResponse';
 
 @Component({
   selector: 'app-profile',
@@ -15,20 +18,24 @@ export class ProfileComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
   user: User | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {
-    
-  }
+  constructor(
+    private authService: AuthService, 
+    private store: Store<AppState>
+    ) {}
 
   ngOnInit(): void {
     const value = localStorage.getItem('token');
-    if (value) {
-      const decodedToken: UserResponse = jwt_decode(value);
-      this.user = decodedToken.user;
-    }
-  }
-
-  onBack() {
-    this.router.navigateByUrl('/home');
+    const decodedToken: UserResponse = jwt_decode(value!);
+    this.store.select(selectLoggedUser).subscribe((user) => {
+      if(user){
+        this.user = user;
+      }
+    });
+    this.store.dispatch(
+      loggedUser({
+        userId: decodedToken.user.id
+      })
+    );
   }
 
   onSignOut() {
@@ -54,10 +61,11 @@ export class ProfileComponent implements OnInit {
 
   onAdd() {
     const { phoneNumber } = this.form.value;
-    if (!phoneNumber) return;
+    if (!phoneNumber || !this.user) return;
     
-    // dodavanje telefona
-    
+    this.store.dispatch(addPhoneNumber({ userId: this.user.id, phoneNumber }));
+
+    this.form.reset(phoneNumber);
   }
 
   setInputDateValue () {

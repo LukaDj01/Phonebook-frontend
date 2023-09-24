@@ -25,3 +25,14 @@ export const selectSelectedUser = createSelector(
     selectSelectedUserId,
     (users, userId) => users.entities[userId]
 );
+
+export const selectLoggedUserId = createSelector(
+    selectUsersFeature,
+    (users) => users.loggedUser
+);
+
+export const selectLoggedUser = createSelector(
+    selectUsersFeature,
+    selectLoggedUserId,
+    (users, userId) => users.entities[userId]
+);

@@ -1,7 +1,7 @@
 <div class="menu">
     <h2>Profil</h2>
     <div>
-        <button (click)="onBack()" class="backBtn">Nazad</button>
+        <button [routerLink]="['', { outlets: { home: ['directory'] } }]" class="backBtn">Nazad</button>
         <button (click)="onSignOut()" class="signOutBtn">Odjavi se</button>
     </div>
 </div>

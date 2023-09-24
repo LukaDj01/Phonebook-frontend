@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit {
 
     if (this.submissionType === 'login') {
       this.authService.login(email, password).subscribe(() => {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl(`/home(home:directory)`);
       });
       return;
     } else if (this.submissionType === 'register') {
