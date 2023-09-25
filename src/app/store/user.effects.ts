@@ -24,9 +24,31 @@ export class UsersEffects {
             ofType(UsersActions.addPhoneNumber),
             mergeMap(({ userId, phoneNumber }) => 
                 this.usersService.addPhoneNumber(userId, phoneNumber).pipe(
-                    tap((user) => {}),
+                    tap((user) => {}), // mozda fja da se azurira localStorage??
                     map((user) => (UsersActions.addPhoneNumberSuccess({ user }))),
                     catchError(() => of({ type: 'add phone error' }))
+                )
+            )
+        )
+    );
+    removeUserPhone$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UsersActions.removePhoneNumber),
+            mergeMap(({ phoneId, userId }) => 
+                this.usersService.removePhoneNumber(phoneId, userId).pipe(
+                    map((user) => (UsersActions.removePhoneNumberSuccess({ user }))),
+                    catchError(() => of({ type: 'remove phone error' }))
+                )
+            )
+        )
+    );
+    updateUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UsersActions.updateUser),
+            mergeMap(({ userId, addInfosId, updateUser }) => 
+                this.usersService.updateUser(userId, addInfosId, updateUser).pipe(
+                    map((user) => (UsersActions.updateUserSuccess({ user }))),
+                    catchError(() => of({ type: 'update user error' }))
                 )
             )
         )

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
-import { loadUsers } from 'src/app/store/user.action';
+import { loadUsers, loggedUser } from 'src/app/store/user.action';
+import jwt_decode from 'jwt-decode';
+import { UserResponse } from 'src/app/models/userResponse';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadUsers());
+    const value = localStorage.getItem('token');
+    const decodedToken: UserResponse = jwt_decode(value!);
+    this.store.dispatch(
+      loggedUser({
+        userId: decodedToken.user.id
+      })
+    );
   }
 
 }

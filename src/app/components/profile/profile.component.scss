@@ -75,6 +75,16 @@
     justify-content: space-between;
 }
 
+.removePhoneBtn {
+    cursor: pointer;
+    background-color: red;
+    margin-left: 5px;
+}
+
+.removePhoneBtn:hover {
+    background-color: rgb(192, 0, 0);
+}
+
 .submitBtns {
     display: flex;
     flex-direction: row;

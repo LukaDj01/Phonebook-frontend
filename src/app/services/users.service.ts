@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { evnironment } from 'src/environments/environment';
 import { Observable, take } from 'rxjs';
+import { UpdateUser } from '../models/updateUser';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,29 @@ export class UsersService {
     .post<User>(
       `${evnironment.api}/users/${userId}`, 
       { number: phoneNumber }, 
+      this.httpOptions
+    ).pipe(take(1));
+  }
+
+  removePhoneNumber(phoneId: number, userId: number): Observable<User> {
+    return this.httpClient
+    .delete<User>(
+      `${evnironment.api}/users/removePhone/${phoneId}/${userId}`
+    ).pipe(take(1));
+  }
+
+  updateUser(userId: number, addInfosId: number, updateUser: UpdateUser): Observable<User> {
+    return this.httpClient
+    .put<User>(
+      `${evnironment.api}/users/${userId}/${addInfosId}`, 
+      { 
+        firstName: updateUser.firstName,
+        lastName: updateUser.lastName,
+        additionalInfos: {
+          birthDate: updateUser.updateAdditionalInfos.birthDate,
+          description: updateUser.updateAdditionalInfos.description
+        }
+      }, 
       this.httpOptions
     ).pipe(take(1));
   }

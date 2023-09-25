@@ -39,5 +39,23 @@ export const usersReducer = createReducer(
                 phones: user.phones
             }
         }, state)
+    ),
+    on(Actions.removePhoneNumberSuccess, (state, {user}) => 
+        adapter.updateOne({
+            id: user.id,
+            changes: {
+                phones: user.phones
+            }
+        }, state)
+    ),
+    on(Actions.updateUserSuccess, (state, {user}) => 
+        adapter.updateOne({
+            id: user.id,
+            changes: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                additionalInfos: user.additionalInfos
+            }
+        }, state)
     )
 );

@@ -5,9 +5,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectLoggedUser } from 'src/app/store/user.selector';
 import { AppState } from 'src/app/app.state';
-import { addPhoneNumber, loadUsers, loggedUser } from 'src/app/store/user.action';
-import jwt_decode from 'jwt-decode';
-import { UserResponse } from 'src/app/models/userResponse';
+import { addPhoneNumber, removePhoneNumber, updateUser } from 'src/app/store/user.action';
+import { UpdateUser } from 'src/app/models/updateUser';
+import { UpdateAdditionalInfos } from 'src/app/models/updateAdditionalInfos';
 
 @Component({
   selector: 'app-profile',
@@ -24,18 +24,11 @@ export class ProfileComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    const value = localStorage.getItem('token');
-    const decodedToken: UserResponse = jwt_decode(value!);
     this.store.select(selectLoggedUser).subscribe((user) => {
       if(user){
         this.user = user;
       }
     });
-    this.store.dispatch(
-      loggedUser({
-        userId: decodedToken.user.id
-      })
-    );
   }
 
   onSignOut() {
@@ -50,9 +43,19 @@ export class ProfileComponent implements OnInit {
     birthDate = !birthDate ? this.user?.additionalInfos.birthDate : birthDate;
     description = !description ? this.user?.additionalInfos.description : description;
 
-    // izmena podataka
-    
+    const updateAddInfos : UpdateAdditionalInfos = {
+      birthDate: birthDate,
+      description: description
+    }
+    const updtUser: UpdateUser = {
+      firstName: firstName,
+      lastName: lastName,
+      updateAdditionalInfos: updateAddInfos
+    }
 
+    if(this.user) {
+      this.store.dispatch(updateUser({ userId: this.user.id, addInfosId: this.user.additionalInfos.id, updateUser: updtUser }));
+    }
   }
 
   onCancel() {
@@ -66,6 +69,13 @@ export class ProfileComponent implements OnInit {
     this.store.dispatch(addPhoneNumber({ userId: this.user.id, phoneNumber }));
 
     this.form.reset(phoneNumber);
+  }
+
+  onRemove(phoneId: number) {
+    if(this.user) {
+      this.store.dispatch(removePhoneNumber({ phoneId: phoneId, userId: this.user.id }));
+    }
+    
   }
 
   setInputDateValue () {
