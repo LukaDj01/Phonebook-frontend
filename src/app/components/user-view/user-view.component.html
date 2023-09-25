@@ -1,16 +1,19 @@
 <div *ngIf="user">
     <h2>Korisničke informacije</h2>
-    <label>Ime:</label>
+    <label class="label">Ime:</label>
     <label>{{user.firstName}}</label><br><br>
-    <label>Prezime:</label>
+    <label class="label">Prezime:</label>
     <label>{{user.lastName}}</label><br><br>
-    <label>Email:</label>
+    <label class="label">Email:</label>
     <label>{{user.email}}</label><br><br>
-    <label>Datum rodjenja:</label>
+    <label class="label">Datum rodjenja:</label>
     <label *ngIf="user.additionalInfos">{{getDateString()}}</label><br><br>
-    <label>Opis:</label>
-    <label *ngIf="user.additionalInfos">{{user.additionalInfos.description}}</label><br><br>
-    <label>Brojevi telefona:</label>
+    <label class="label">Opis:</label><br><br>
+    <div *ngIf="user.additionalInfos">
+        
+        <textarea disabled="true" class="description">{{user.additionalInfos.description}}</textarea><br><br>
+    </div>
+    <label class="label">Brojevi telefona:</label>
     <div *ngIf="user.phones" >
         <ul *ngFor="let phone of user.phones">
             <li>{{phone.number}}</li>

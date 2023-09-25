@@ -1,6 +1,6 @@
 <div class="menu">
-    <h2>Profil</h2>
-    <div>
+    <h2 class="title">Profil</h2>
+    <div class="menuBtns">
         <button [routerLink]="['', { outlets: { home: ['directory'] } }]" class="backBtn">Nazad</button>
         <button (click)="onSignOut()" class="signOutBtn">Odjavi se</button>
     </div>
@@ -72,7 +72,7 @@
                     type="text"
                     name="description" 
                     required
-                    class="input"
+                    class="input description"
                     placeholder={{user.additionalInfos.description}}
                     ></textarea>
                 </div>
