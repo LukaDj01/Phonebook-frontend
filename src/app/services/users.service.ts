@@ -52,4 +52,9 @@ export class UsersService {
     ).pipe(take(1));
   }
 
+  getUsersSearch(text: string){
+    return this.httpClient
+    .get<User[]>(evnironment.api + `/users/search/${text}`);
+  }
+
 }

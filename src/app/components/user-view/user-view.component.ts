@@ -26,6 +26,7 @@ export class UserViewComponent implements OnInit {
 
   getDateString(): string {
     if(this.user) {
+      if (this.user.additionalInfos.birthDate == null) return "";
       let userBDate = new Date(this.user.additionalInfos.birthDate);
       if(userBDate) {
         let day = userBDate.getDate();
@@ -40,18 +41,4 @@ export class UserViewComponent implements OnInit {
     else
       return "";
   }
-  
-  setInputDateValue () {
-    const date : Date =new Date(this.user!.additionalInfos.birthDate);
-    return [
-      this.padTo2Digits(date.getDate()),
-      this.padTo2Digits(date.getMonth() + 1),
-      date.getFullYear(),
-    ].join('-');
-  }
-
-  padTo2Digits(num:number) {
-    return num.toString().padStart(2, '0');
-  }
-
 }

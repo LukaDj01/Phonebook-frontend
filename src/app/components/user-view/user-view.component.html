@@ -9,7 +9,7 @@
     <label class="label">Datum rodjenja:</label>
     <label *ngIf="user.additionalInfos">{{getDateString()}}</label><br><br>
     <label class="label">Opis:</label><br><br>
-    <div *ngIf="user.additionalInfos">
+    <div *ngIf="user.additionalInfos.description">
         
         <textarea disabled="true" class="description">{{user.additionalInfos.description}}</textarea><br><br>
     </div>

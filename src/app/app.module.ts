@@ -22,6 +22,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { HomeComponent } from './components/home/home.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { HomeComponent } from './components/home/home.component';
     DirectoryItemComponent,
     ProfileComponent,
     HomeComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,

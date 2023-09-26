@@ -40,8 +40,8 @@ export class ProfileComponent implements OnInit {
     firstName = !firstName ? this.user?.firstName : firstName;
     lastName = !lastName ? this.user?.lastName : lastName;
     email = !email ? this.user?.email : email;
-    birthDate = !birthDate ? this.user?.additionalInfos.birthDate : birthDate;
-    description = !description ? this.user?.additionalInfos.description : description;
+    birthDate = (!birthDate && this.user?.additionalInfos) ? this.user?.additionalInfos.birthDate : birthDate;
+    description = (!description && this.user?.additionalInfos) ? this.user?.additionalInfos.description : description;
 
     const updateAddInfos : UpdateAdditionalInfos = {
       birthDate: birthDate,
@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
       lastName: lastName,
       updateAdditionalInfos: updateAddInfos
     }
-
     if(this.user) {
       this.store.dispatch(updateUser({ userId: this.user.id, addInfosId: this.user.additionalInfos.id, updateUser: updtUser }));
     }
@@ -79,7 +78,11 @@ export class ProfileComponent implements OnInit {
   }
 
   setInputDateValue () {
-    const date : Date =new Date(this.user!.additionalInfos.birthDate);
+    let date: Date = new Date();
+    if (this.user && this.user.additionalInfos && this.user.additionalInfos.birthDate) {
+      date = new Date(this.user!.additionalInfos.birthDate);
+    }
+    
     return [
       this.padTo2Digits(date.getDate()),
       this.padTo2Digits(date.getMonth() + 1),

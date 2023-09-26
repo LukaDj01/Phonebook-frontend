@@ -5,14 +5,16 @@ import { EntityState, createEntityAdapter } from "@ngrx/entity";
 
 export interface UsersState extends EntityState<User> {
     selectedUser: number;
-    loggedUser: number;
+    loggedUser: User | null;
+    searchBarValue: string;
 }
 
 export const adapter = createEntityAdapter<User>();
 
 export const initialState: UsersState = adapter.getInitialState({
     selectedUser: 0,
-    loggedUser: 0,
+    loggedUser: null,
+    searchBarValue: ""
 });
 
 export const usersReducer = createReducer(
@@ -23,10 +25,10 @@ export const usersReducer = createReducer(
             selectedUser: userId
         };
     }),
-    on(Actions.loggedUser, (state, {userId}) => {
+    on(Actions.loggedUser, (state, {user}) => {
         return {
             ...state,
-            loggedUser: userId
+            loggedUser: user
         };
     }),
     on(Actions.loadUsersSuccess, (state, {users}) => 
@@ -38,7 +40,7 @@ export const usersReducer = createReducer(
             changes: {
                 phones: user.phones
             }
-        }, state)
+        }, {...state, loggedUser: user})
     ),
     on(Actions.removePhoneNumberSuccess, (state, {user}) => 
         adapter.updateOne({
@@ -46,7 +48,7 @@ export const usersReducer = createReducer(
             changes: {
                 phones: user.phones
             }
-        }, state)
+        }, {...state, loggedUser: user})
     ),
     on(Actions.updateUserSuccess, (state, {user}) => 
         adapter.updateOne({
@@ -54,8 +56,11 @@ export const usersReducer = createReducer(
             changes: {
                 firstName: user.firstName,
                 lastName: user.lastName,
-                additionalInfos: user.additionalInfos
+                additionalInfos: user.additionalInfos,
             }
-        }, state)
-    )
+        }, {...state, loggedUser: user})
+    ),
+    on(Actions.searchUsersSuccess, (state, {users, text}) => 
+        adapter.setAll(users, {...state, searchBarValue: text})
+    ),
 );

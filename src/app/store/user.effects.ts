@@ -53,4 +53,15 @@ export class UsersEffects {
             )
         )
     );
+    searchUsers$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UsersActions.searchUsers),
+            mergeMap(({ text }) => 
+                this.usersService.getUsersSearch(text).pipe(
+                    map((users) => (UsersActions.searchUsersSuccess({ users, text }))),
+                    catchError(() => of({ type: 'search users error' }))
+                )
+            )
+        )
+    );
 }

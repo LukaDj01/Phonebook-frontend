@@ -55,7 +55,8 @@
                 <label>Datum rodjenja:</label>
             </div>
             <mat-form-field>
-                <mat-label>{{setInputDateValue()}}</mat-label>
+                <mat-label *ngIf="this.user.additionalInfos.birthDate">{{setInputDateValue()}}</mat-label>
+                <mat-label *ngIf="!this.user.additionalInfos.birthDate"></mat-label>
                 <input #birthDateInput="ngModel"
                 ngModel
                 name="birthDate"
@@ -74,6 +75,16 @@
                     required
                     class="input description"
                     placeholder={{user.additionalInfos.description}}
+                    ></textarea>
+                </div>
+                <div style="display: flex; flex-direction: column;" *ngIf="!user.additionalInfos">
+                    <textarea 
+                    #descriptionInput="ngModel"
+                    ngModel
+                    type="text"
+                    name="description" 
+                    required
+                    class="input description"
                     ></textarea>
                 </div>
             </div>

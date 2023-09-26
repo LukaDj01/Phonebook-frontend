@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     const decodedToken: UserResponse = jwt_decode(value!);
     this.store.dispatch(
       loggedUser({
-        userId: decodedToken.user.id
+        user: decodedToken.user
       })
     );
   }
