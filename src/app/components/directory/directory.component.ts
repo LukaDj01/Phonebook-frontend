@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, filter, from, fromEvent, map, of, switchMap } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,6 +23,13 @@ export class DirectoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.store.select(selectUsersList);
+    const search: HTMLInputElement = document.querySelector(".search")!;
+    fromEvent(search, "input").pipe(
+      debounceTime(600),
+      map((event) => (<HTMLInputElement>event.target).value),
+      distinctUntilChanged(),
+      //switchMap((text: string) => )
+    ).subscribe(x=>console.log(x));
   }
 
   selectUser(user: User) {
